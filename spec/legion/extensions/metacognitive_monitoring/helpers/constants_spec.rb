@@ -33,12 +33,12 @@ RSpec.describe Legion::Extensions::MetacognitiveMonitoring::Helpers do
     subject(:labels) { described_class::CALIBRATION_LABELS }
 
     it 'maps high score to :well_calibrated' do
-      label = labels.find { |range, _| range === 0.9 }&.last
+      label = labels.find { |range, _| range.cover? 0.9 }&.last
       expect(label).to eq(:well_calibrated)
     end
 
     it 'maps low score to :uncalibrated' do
-      label = labels.find { |range, _| range === 0.1 }&.last
+      label = labels.find { |range, _| range.cover? 0.1 }&.last
       expect(label).to eq(:uncalibrated)
     end
   end
@@ -47,12 +47,12 @@ RSpec.describe Legion::Extensions::MetacognitiveMonitoring::Helpers do
     subject(:labels) { described_class::CONFIDENCE_LABELS }
 
     it 'maps 0.9 to :very_high' do
-      label = labels.find { |range, _| range === 0.9 }&.last
+      label = labels.find { |range, _| range.cover? 0.9 }&.last
       expect(label).to eq(:very_high)
     end
 
     it 'maps 0.1 to :very_low' do
-      label = labels.find { |range, _| range === 0.1 }&.last
+      label = labels.find { |range, _| range.cover? 0.1 }&.last
       expect(label).to eq(:very_low)
     end
   end
@@ -61,12 +61,12 @@ RSpec.describe Legion::Extensions::MetacognitiveMonitoring::Helpers do
     subject(:labels) { described_class::EFFORT_LABELS }
 
     it 'maps 0.9 to :extreme' do
-      label = labels.find { |range, _| range === 0.9 }&.last
+      label = labels.find { |range, _| range.cover? 0.9 }&.last
       expect(label).to eq(:extreme)
     end
 
     it 'maps 0.1 to :minimal' do
-      label = labels.find { |range, _| range === 0.1 }&.last
+      label = labels.find { |range, _| range.cover? 0.1 }&.last
       expect(label).to eq(:minimal)
     end
   end

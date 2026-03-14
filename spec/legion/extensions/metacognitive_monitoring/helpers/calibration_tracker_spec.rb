@@ -137,7 +137,7 @@ RSpec.describe Legion::Extensions::MetacognitiveMonitoring::Helpers::Calibration
     it 'includes all summary keys' do
       h = tracker.to_h
       expect(h).to include(:count, :mean_calibration_error, :calibration_score, :calibration_label,
-                            :overconfident, :underconfident)
+                           :overconfident, :underconfident)
     end
   end
 end

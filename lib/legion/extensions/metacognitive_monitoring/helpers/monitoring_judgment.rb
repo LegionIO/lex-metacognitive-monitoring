@@ -46,11 +46,11 @@ module Legion
           end
 
           def confidence_label
-            CONFIDENCE_LABELS.find { |range, _| range === predicted_confidence }&.last
+            CONFIDENCE_LABELS.find { |range, _| range.cover?(predicted_confidence) }&.last
           end
 
           def effort_label
-            EFFORT_LABELS.find { |range, _| range === effort_level }&.last
+            EFFORT_LABELS.find { |range, _| range.cover?(effort_level) }&.last
           end
 
           def to_h

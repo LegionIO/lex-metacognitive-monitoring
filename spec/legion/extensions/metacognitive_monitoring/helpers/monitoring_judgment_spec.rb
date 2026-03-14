@@ -159,7 +159,7 @@ RSpec.describe Legion::Extensions::MetacognitiveMonitoring::Helpers::MonitoringJ
     it 'includes all key fields' do
       h = judgment.to_h
       expect(h).to include(:id, :judgment_type, :domain, :predicted_confidence, :actual_outcome,
-                            :effort_level, :resolved, :calibration_error, :confidence_label, :effort_label, :created_at)
+                           :effort_level, :resolved, :calibration_error, :confidence_label, :effort_label, :created_at)
     end
 
     it 'reflects resolved state after resolution' do

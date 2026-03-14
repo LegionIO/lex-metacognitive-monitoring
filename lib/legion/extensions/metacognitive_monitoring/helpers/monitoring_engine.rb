@@ -44,7 +44,7 @@ module Legion
 
           def feeling_of_knowing(domain:, query: nil)
             domain_cal   = domain_calibration_for(domain)
-            base_conf    = domain_cal.count.positive? ? domain_cal.calibration_score : DEFAULT_CONFIDENCE
+            base_conf    = domain_cal.empty? ? DEFAULT_CONFIDENCE : domain_cal.calibration_score
             richness_mod = query.to_s.split.size * 0.02
             confidence   = [(base_conf + richness_mod).clamp(0.0, 1.0), 1.0].min
 
@@ -58,7 +58,7 @@ module Legion
 
           def judgment_of_learning(domain:, content: nil)
             domain_cal  = domain_calibration_for(domain)
-            base_conf   = domain_cal.count.positive? ? domain_cal.calibration_score : DEFAULT_CONFIDENCE
+            base_conf   = domain_cal.empty? ? DEFAULT_CONFIDENCE : domain_cal.calibration_score
             length_mod  = [(content.to_s.length * 0.001), 0.1].min
             confidence  = (base_conf + length_mod).clamp(0.0, 1.0)
 
@@ -88,15 +88,14 @@ module Legion
           def calibration_report
             domain_reports = @domain_calibrations.transform_values(&:to_h)
             {
-              overall:       @calibration.to_h,
-              by_domain:     domain_reports,
+              overall:        @calibration.to_h,
+              by_domain:      domain_reports,
               total_resolved: @judgments.values.count(&:resolved)
             }
           end
 
           def monitoring_report
-            resolved   = @judgments.values.select(&:resolved)
-            unresolved = @judgments.values.reject(&:resolved)
+            resolved, unresolved = @judgments.values.partition(&:resolved)
 
             {
               total_judgments:      @judgments.size,
@@ -112,10 +111,10 @@ module Legion
 
           def to_h
             {
-              judgment_count:  @judgments.size,
-              calibration:     @calibration.to_h,
-              domain_count:    @domain_calibrations.size,
-              average_effort:  average_effort
+              judgment_count: @judgments.size,
+              calibration:    @calibration.to_h,
+              domain_count:   @domain_calibrations.size,
+              average_effort: average_effort
             }
           end
 

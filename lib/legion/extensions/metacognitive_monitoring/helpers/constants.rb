@@ -10,27 +10,27 @@ module Legion
                                     error_detection].freeze
 
         CALIBRATION_LABELS = {
-          (0.8..)      => :well_calibrated,
-          (0.6...0.8)  => :slightly_miscalibrated,
-          (0.4...0.6)  => :miscalibrated,
-          (0.2...0.4)  => :poorly_calibrated,
-          (..0.2)      => :uncalibrated
+          (0.8..)     => :well_calibrated,
+          (0.6...0.8) => :slightly_miscalibrated,
+          (0.4...0.6) => :miscalibrated,
+          (0.2...0.4) => :poorly_calibrated,
+          (..0.2)     => :uncalibrated
         }.freeze
 
         CONFIDENCE_LABELS = {
-          (0.8..)      => :very_high,
-          (0.6...0.8)  => :high,
-          (0.4...0.6)  => :moderate,
-          (0.2...0.4)  => :low,
-          (..0.2)      => :very_low
+          (0.8..)     => :very_high,
+          (0.6...0.8) => :high,
+          (0.4...0.6) => :moderate,
+          (0.2...0.4) => :low,
+          (..0.2)     => :very_low
         }.freeze
 
         EFFORT_LABELS = {
-          (0.8..)      => :extreme,
-          (0.6...0.8)  => :high,
-          (0.4...0.6)  => :moderate,
-          (0.2...0.4)  => :low,
-          (..0.2)      => :minimal
+          (0.8..)     => :extreme,
+          (0.6...0.8) => :high,
+          (0.4...0.6) => :moderate,
+          (0.2...0.4) => :low,
+          (..0.2)     => :minimal
         }.freeze
 
         OVERCONFIDENCE_THRESHOLD  = 0.2  # predicted - actual > this = overconfident

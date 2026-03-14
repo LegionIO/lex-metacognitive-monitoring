@@ -39,7 +39,7 @@ module Legion
 
           def calibration_label
             score = calibration_score
-            CALIBRATION_LABELS.find { |range, _| range === score }&.last
+            CALIBRATION_LABELS.find { |range, _| range.cover?(score) }&.last
           end
 
           def calibration_curve(bins: 5)
@@ -51,7 +51,7 @@ module Legion
             bin_edges.map do |edge|
               upper = (edge + bin_size).round(10)
               range = (edge...upper)
-              in_bin = @points.select { |p| range === p[:predicted] }
+              in_bin = @points.select { |p| range.cover?(p[:predicted]) }
 
               actual_mean = if in_bin.empty?
                               nil
@@ -69,6 +69,10 @@ module Legion
 
           def count
             @points.size
+          end
+
+          def empty?
+            @points.empty?
           end
 
           def to_h

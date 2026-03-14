@@ -15,9 +15,7 @@ module Legion
             eng       = engine || monitoring_engine
             type_sym  = type.to_sym
 
-            unless Helpers::JUDGMENT_TYPES.include?(type_sym)
-              return { success: false, error: :invalid_judgment_type, valid_types: Helpers::JUDGMENT_TYPES }
-            end
+            return { success: false, error: :invalid_judgment_type, valid_types: Helpers::JUDGMENT_TYPES } unless Helpers::JUDGMENT_TYPES.include?(type_sym)
 
             judgment = eng.record_judgment(
               type:                 type_sym,
@@ -125,7 +123,7 @@ module Legion
             eng    = engine || monitoring_engine
             effort = eng.average_effort(window: window)
 
-            label = Helpers::EFFORT_LABELS.find { |range, _| range === effort }&.last
+            label = Helpers::EFFORT_LABELS.find { |range, _| range.cover?(effort) }&.last
 
             { success: true, average_effort: effort, effort_label: label, window: window }
           end
